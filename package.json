@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^2.6.5",
     "iview": "^3.0.1",
+    "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
@@ -33,8 +34,8 @@
   },
   "lint-staged": {
     "*.{js,vue}": [
-      "vue-cli-service lint",
-      "git add"
+      // "vue-cli-service lint",
+      // "git add"
     ]
   }
 }
