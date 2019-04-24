@@ -12,20 +12,20 @@
 </template>
 
 <script>
-import LoginForm from "@/components/loginForm.vue";
-import { mapActions } from "vuex";
+import LoginForm from '@/components/loginForm.vue'
+import { mapActions } from 'vuex'
 export default {
-  name: "Login",
+  name: 'Login',
   components: {
     LoginForm
   },
   methods: {
-    ...mapActions(["login"]),
-    handleSubmit({ userName, password }) {
-      this.login({ userName, password });
+    ...mapActions(['login']),
+    handleSubmit ({ userName, password }) {
+      this.login({ userName, password })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -63,4 +63,3 @@ export default {
   }
 }
 </style>
-
