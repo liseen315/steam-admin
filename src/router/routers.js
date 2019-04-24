@@ -1,33 +1,27 @@
+import Layout from '@/components/layout'
 export default [
   {
     path: '/login',
     name: 'login',
     meta: {
-      title: 'Login - 登录',
-      hideInMenu: true
+      title: 'Login - 登录'
     },
-    component: () => import('@/views/login/login.vue')
+    component: () => import('@/views/login.vue')
+  },
+  {
+    path: '/',
+    name: 'layout',
+    redirect: '/home',
+    component: Layout,
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        meta: {
+          title: '首页'
+        },
+        component: () => import('@/views/home')
+      }
+    ]
   }
-  // {
-  //   path: '/',
-  //   name: '_home',
-  //   redirect: '/home',
-  //   component: Main,
-  //   meta: {
-  //     hideInMenu: true
-  //   },
-  //   children: [
-  //     {
-  //       path: '/home',
-  //       name: 'home',
-  //       meta: {
-  //         hideInMenu: true,
-  //         title: '首页',
-  //         notCache: true,
-  //         icon: 'md-home'
-  //       },
-  //       component: () => import('@/view/single-page/home')
-  //     }
-  //   ]
-  // }
 ]

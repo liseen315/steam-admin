@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routers'
 import iView from 'iview'
-import { setTitle } from '@/utils'
+import { setTitle, getToken } from '@/utils'
 import config from '@/config'
 const { homeName } = config
 
@@ -12,17 +12,22 @@ const router = new Router({
   mode: 'history'
 })
 
-const LOGIN_PAGE_NAME = 'login'
-
-const turnTo = (to, access, next) => {
-  if (canTurnTo(to.name, access, routes)) next()
-  // 有权限，可访问
-  else next({ replace: true, name: 'error_401' }) // 无权限，重定向到401页面
-}
-
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
-  next()
+  const token = getToken()
+  if (!token && to.name !== 'login') {
+    next({
+      name: 'login'
+    })
+  } else if (!token && to.name === 'login') {
+    next()
+  } else if (token && to.name === 'login') {
+    // 自动到home页面
+    next({
+      name: 'home'
+    })
+  } else {
+  }
 })
 
 router.afterEach(to => {
