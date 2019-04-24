@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import store from '@/store'
-import { TOKEN_KEY } from '@/utils'
+import { TOKEN_KEY, getToken } from '../utils'
 class Resource {
   constructor (contentType) {
     this._axiosInstance = null
@@ -15,10 +15,10 @@ class Resource {
       withCredentials: false // 是否开启跨域验证 默认不开启
     })
 
-    // 如何vuex内存在token那么发送的时候带上token
-    console.log('----store----', store.state.user.token)
-    if (store.state.user.token) {
-      this.setHeader(TOKEN_KEY, store.state.user.token)
+    // 如何前端的本地存储内存在token
+    let tokenValue = getToken(TOKEN_KEY)
+    if (tokenValue) {
+      this.setHeader(TOKEN_KEY, tokenValue)
     }
 
     // 注入request钩子函数

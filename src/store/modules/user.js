@@ -6,8 +6,7 @@ import { reject } from 'q'
 const state = {
   userName: '',
   userId: '',
-  status: '',
-  token: getToken()
+  status: ''
 }
 const actions = {
   login ({ commit }, { userName, passWord }) {
@@ -17,7 +16,7 @@ const actions = {
         .login({ userName, passWord })
         .then(res => {
           if (res.code === 0) {
-            setToken(res.body.token, new Date(res.body.expires * 1000))
+            setToken(res.body.token)
             commit(SET_TOKEN, res.body.token)
             resolve()
           }

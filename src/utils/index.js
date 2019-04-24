@@ -5,14 +5,12 @@ const { title, cookieExpires } = config
 
 export const TOKEN_KEY = 'authorization'
 
-export const setToken = (token, exp) => {
-  Cookies.set(TOKEN_KEY, token, { expires: exp || 1 })
+export const setToken = token => {
+  window.localStorage.setItem(TOKEN_KEY, token)
 }
 
 export const getToken = () => {
-  const token = Cookies.get(TOKEN_KEY)
-  if (token) return token
-  else return false
+  return window.localStorage.getItem(TOKEN_KEY)
 }
 
 export const getRouteTitleHandled = route => {
