@@ -12,20 +12,26 @@
 </template>
 
 <script>
-import LoginForm from '@/components/loginForm.vue'
-import { mapActions } from 'vuex'
+import LoginForm from "@/components/loginForm.vue";
+import { mapActions } from "vuex";
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
     LoginForm
   },
   methods: {
-    ...mapActions(['login']),
-    handleSubmit ({ userName, password }) {
-      this.login({ userName, password })
+    ...mapActions(["login", "getUserInfo"]),
+    handleSubmit({ userName, passWord }) {
+      this.login({ userName, passWord }).then(res => {
+        this.getUserInfo().then(res => {
+          this.$router.push({
+            name: "home"
+          });
+        });
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -5,8 +5,8 @@ class UserService extends BaseService {
     return this.post(API_LOGIN, account)
   }
 
-  getInfo (token) {
-    return this.get(API_GET_MANAGERINFO, token)
+  getInfo () {
+    return this.get(API_GET_MANAGERINFO)
   }
 
   logout () {

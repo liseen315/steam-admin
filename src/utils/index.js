@@ -3,10 +3,10 @@ import Cookies from 'js-cookie'
 
 const { title, cookieExpires } = config
 
-export const TOKEN_KEY = 'token'
+export const TOKEN_KEY = 'authorization'
 
-export const setToken = token => {
-  Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 })
+export const setToken = (token, exp) => {
+  Cookies.set(TOKEN_KEY, token, { expires: exp || 1 })
 }
 
 export const getToken = () => {

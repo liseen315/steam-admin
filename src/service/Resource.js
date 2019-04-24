@@ -1,16 +1,38 @@
 import axios from 'axios'
-
+import qs from 'qs'
+import store from '@/store'
+import { TOKEN_KEY } from '@/utils'
 class Resource {
-  constructor () {
+  constructor (contentType) {
     this._axiosInstance = null
     this._url = ''
-    this.init()
+    this.init(contentType)
   }
 
-  init () {
+  init (contentType) {
     this._axiosInstance = axios.create({
       timeout: 5000, // 延迟5秒
       withCredentials: false // 是否开启跨域验证 默认不开启
+    })
+
+    // 如何vuex内存在token那么发送的时候带上token
+    console.log('----store----', store.state.user.token)
+    if (store.state.user.token) {
+      this.setHeader(TOKEN_KEY, store.state.user.token)
+    }
+
+    // 注入request钩子函数
+    this.injectRequestHook(config => {
+      // 根据不同的Content-Type调整请求参数格式
+      switch (contentType) {
+        case 'application/json':
+          break
+        case 'application/x-www-form-urlencoded':
+        default:
+          config.data = qs.stringify(config.data)
+          break
+      }
+      return config
     })
   }
   /**
@@ -76,7 +98,6 @@ class Resource {
 
   post (url, param) {
     this._url = url
-    console.log('---post--', param)
     return this._axiosInstance.post(url, param)
   }
 }
