@@ -10,7 +10,11 @@
       :style="{overflow: 'hidden'}"
     ></Sider>
     <Layout>
-      <Header class="header-con"></Header>
+      <Header class="header-con">
+        <HeaderBar>
+          <User :userAvatar="userAvatar"></User>
+        </HeaderBar>
+      </Header>
       <Content class="main-content-con">
         <Layout class="main-layout-con">
           <Content class="content-wrapper">
@@ -25,10 +29,18 @@
 </template>
 
 <script>
+import HeaderBar from "./headerbar";
+import User from "./user";
 export default {
+  components: {
+    HeaderBar,
+    User
+  },
   data() {
     return {
-      collapsed: false
+      collapsed: false,
+      userAvatar:
+        "https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png"
     };
   }
 };

@@ -1,4 +1,4 @@
-import { API_LOGIN, API_GET_MANAGERINFO, API_LOGINOUT } from './apiPath'
+import { API_LOGIN, API_GET_MANAGERINFO, API_LOGOUT } from './apiPath'
 import BaseService from './BaseService'
 class UserService extends BaseService {
   login (account) {

@@ -16,7 +16,6 @@ const router = new Router({
 const turnTo = (to, access, next) => {
   if (canTurnTo(to.name, access, routes)) {
     // 有权限，可访问
-    console.log('----turnTo---', to.name)
     next()
   } else {
     next({ replace: true, name: 'error_401' })

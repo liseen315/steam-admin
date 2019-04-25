@@ -1,6 +1,6 @@
 import UserService from '../../service/UserService'
-import { getToken, setToken } from '../../utils/index'
-import { SET_TOKEN, SET_USERINFO } from '../types'
+import { getToken, setToken, removeToken } from '../../utils/index'
+import { RESET_STATE, SET_USERINFO } from '../types'
 
 const state = {
   userName: '',
@@ -20,7 +20,6 @@ const actions = {
         .then(res => {
           if (res.code === 0) {
             setToken(res.body.token)
-            commit(SET_TOKEN, res.body.token)
           }
           resolve(res)
         })
@@ -44,12 +43,36 @@ const actions = {
           reject(err)
         })
     })
+  },
+
+  handleLogOut ({ commit }) {
+    return new Promise((resolve, reject) => {
+      new UserService()
+        .logout()
+        .then(res => {
+          console.log('---登出----', res)
+          if (res.code === 0) {
+            removeToken()
+            commit(RESET_STATE)
+          }
+          resolve(res)
+        })
+        .catch(err => {
+          reject(err)
+        })
+    })
   }
 }
 
 const mutations = {
-  [SET_TOKEN] (state, token) {
-    state.token = token
+  [RESET_STATE] (state) {
+    state.userName = ''
+    state.userId = ''
+    state.status = 1
+    state.createName = ''
+    state.createId = ''
+    state.roleName = ''
+    state.hasGetUserInfo = false
   },
   [SET_USERINFO] (state, userInfo) {
     state.userName = userInfo.userName
