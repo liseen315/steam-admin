@@ -1,13 +1,18 @@
 <template>
   <div class="header-bar">
+    <SiderTrigger icon="md-menu"></SiderTrigger>
     <div class="custom-content-con">
       <slot></slot>
     </div>
   </div>
 </template>
 <script>
+import SiderTrigger from "./siderTrigger";
 export default {
-  name: "HeaderBar"
+  name: "HeaderBar",
+  components: {
+    SiderTrigger
+  }
 };
 </script>
 

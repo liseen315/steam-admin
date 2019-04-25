@@ -18,8 +18,9 @@ const turnTo = (to, access, next) => {
     // 有权限，可访问
     next()
   } else {
+    // 无权限，重定向到401页面
     next({ replace: true, name: 'error_401' })
-  } // 无权限，重定向到401页面
+  }
 }
 
 router.beforeEach((to, from, next) => {

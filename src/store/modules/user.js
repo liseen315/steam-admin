@@ -50,7 +50,6 @@ const actions = {
       new UserService()
         .logout()
         .then(res => {
-          console.log('---登出----', res)
           if (res.code === 0) {
             removeToken()
             commit(RESET_STATE)
