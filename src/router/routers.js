@@ -4,24 +4,55 @@ export default [
     path: '/login',
     name: 'login',
     meta: {
-      title: 'Login - 登录'
+      title: '登录'
     },
     component: () => import('@/views/login.vue')
   },
   {
     path: '/',
-    name: 'layout',
+    name: '_home',
     redirect: '/home',
     component: Layout,
+    meta: {
+      hideInMenu: true,
+      notCache: true
+    },
     children: [
       {
         path: '/home',
         name: 'home',
         meta: {
-          title: '首页'
+          hideInMenu: true,
+          title: '首页',
+          notCache: true,
+          icon: 'md-home'
         },
-        component: () => import('@/views/home')
+        component: () => import('@/views/home.vue')
       }
     ]
+  },
+  {
+    path: '/401',
+    name: 'error_401',
+    meta: {
+      hideInMenu: true
+    },
+    component: () => import('@/views/error-page/401.vue')
+  },
+  {
+    path: '/500',
+    name: 'error_500',
+    meta: {
+      hideInMenu: true
+    },
+    component: () => import('@/views/error-page/500.vue')
+  },
+  {
+    path: '*',
+    name: 'error_404',
+    meta: {
+      hideInMenu: true
+    },
+    component: () => import('@/views/error-page/404.vue')
   }
 ]

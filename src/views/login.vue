@@ -3,7 +3,7 @@
     <div class="login-con">
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
-          <LoginForm @on-success-valid="handleSubmit"></LoginForm>
+          <LoginForm></LoginForm>
           <p class="login-tip">请输入管理员账号-密码</p>
         </div>
       </Card>
@@ -13,24 +13,11 @@
 
 <script>
 import LoginForm from "@/components/loginForm.vue";
-import { mapActions } from "vuex";
+
 export default {
   name: "Login",
   components: {
     LoginForm
-  },
-  methods: {
-    ...mapActions(["login", "getUserInfo"]),
-    handleSubmit({ userName, passWord }) {
-      this.login({ userName, passWord }).then(res => {
-        this.getUserInfo().then(res => {
-          console.log("---路由跳转到home");
-          this.$router.push({
-            name: "home"
-          });
-        });
-      });
-    }
   }
 };
 </script>

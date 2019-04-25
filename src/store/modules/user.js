@@ -8,8 +8,8 @@ const state = {
   status: 1,
   createName: '',
   createId: '',
-  roleName: '', // 用户提供权限访问的角色名称,前后端必须协商并统一
-  hasGetUserInfo: false
+  roleName: '', // 角色名称,用于前端进行导航权限判断,前后端协商
+  hasGetUserInfo: false // 是否获取到了userInfo
 }
 const actions = {
   login ({ commit }, { userName, passWord }) {
@@ -21,8 +21,8 @@ const actions = {
           if (res.code === 0) {
             setToken(res.body.token)
             commit(SET_TOKEN, res.body.token)
-            resolve()
           }
+          resolve(res)
         })
         .catch(err => {
           reject(err)
@@ -36,9 +36,9 @@ const actions = {
         .getInfo()
         .then(res => {
           if (res.code === 0) {
-            commit(SET_USERINFO, res.body.userinfo)
-            resolve()
+            commit(SET_USERINFO, res.body.userInfo)
           }
+          resolve(res)
         })
         .catch(err => {
           reject(err)
@@ -57,6 +57,7 @@ const mutations = {
     state.status = userInfo.status
     state.createName = userInfo.createName
     state.createId = userInfo.createId
+    state.roleName = userInfo.roleName
     state.hasGetUserInfo = true
   }
 }

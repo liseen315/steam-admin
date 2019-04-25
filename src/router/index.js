@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routers'
 import iView from 'iview'
-import { setTitle, getToken } from '@/utils'
+import { setTitle, getToken, removeToken, canTurnTo } from '@/utils'
 import config from '@/config'
 import store from '@/store'
 const { homeName } = config
@@ -14,9 +14,13 @@ const router = new Router({
 })
 
 const turnTo = (to, access, next) => {
-  if (canTurnTo(to.name, access, routes)) next()
-  // 有权限，可访问
-  else next({ replace: true, name: 'error_401' }) // 无权限，重定向到401页面
+  if (canTurnTo(to.name, access, routes)) {
+    // 有权限，可访问
+    console.log('----turnTo---', to.name)
+    next()
+  } else {
+    next({ replace: true, name: 'error_401' })
+  } // 无权限，重定向到401页面
 }
 
 router.beforeEach((to, from, next) => {
@@ -29,12 +33,32 @@ router.beforeEach((to, from, next) => {
   } else if (!token && to.name === 'login') {
     next()
   } else if (token && to.name === 'login') {
-    // 自动到home页面
     next({
       name: 'home'
     })
   } else {
-    console.log('----跳转到home----2222---')
+    if (store.state.user.hasGetUserInfo) {
+      turnTo(to, store.state.user.roleName, next)
+    } else {
+      store
+        .dispatch('getUserInfo')
+        .then(res => {
+          if (res.code === 0) {
+            turnTo(to, res.body.userInfo.roleName, next)
+          } else {
+            removeToken()
+            next({
+              name: 'login'
+            })
+          }
+        })
+        .catch(err => {
+          removeToken()
+          next({
+            name: 'login'
+          })
+        })
+    }
   }
 })
 

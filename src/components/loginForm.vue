@@ -14,12 +14,13 @@
         </span>
       </Input>
     </FormItem>
-    <FormItem>
+    <FormItem :show-message="showError" :error="submitError">
       <Button @click="handleSubmit" type="primary" long>登录</Button>
     </FormItem>
   </Form>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "LoginForm",
   props: {
@@ -41,7 +42,9 @@ export default {
       form: {
         userName: "liseen",
         password: ""
-      }
+      },
+      showError: false,
+      submitError: ""
     };
   },
   computed: {
@@ -53,12 +56,25 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["login", "getUserInfo"]),
+
     handleSubmit() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.$emit("on-success-valid", {
-            userName: this.form.userName,
-            passWord: this.form.password
+          let userName = this.form.userName;
+          let passWord = this.form.password;
+          this.login({ userName, passWord }).then(res => {
+            if (res.code === 0) {
+              this.getUserInfo().then(res => {
+                this.$router.push({
+                  name: "home"
+                });
+              });
+            } else {
+              // 错误
+              this.showError = true;
+              this.submitError = res.message;
+            }
           });
         }
       });
