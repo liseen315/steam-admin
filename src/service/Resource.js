@@ -15,7 +15,7 @@ class Resource {
       withCredentials: false // 是否开启跨域验证 默认不开启
     })
 
-    // 如何前端的本地存储内存在token
+    // 判断本地存储是否有token有就带到header内
     let tokenValue = getToken(TOKEN_KEY)
     if (tokenValue) {
       this.setHeader(TOKEN_KEY, tokenValue)

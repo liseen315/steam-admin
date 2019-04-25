@@ -24,6 +24,7 @@ export default {
     handleSubmit({ userName, passWord }) {
       this.login({ userName, passWord }).then(res => {
         this.getUserInfo().then(res => {
+          console.log("---路由跳转到home");
           this.$router.push({
             name: "home"
           });
