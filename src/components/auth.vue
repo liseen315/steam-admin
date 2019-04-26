@@ -1,9 +1,10 @@
 <template>
   <div class="user-avatar-dropdown">
     <Dropdown @on-click="handleClick">
-      <Avatar :src="userAvatar"/>
+      <Avatar :src="authAvatar"/>
       <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
+        <DropdownItem name="changepw">更改密码</DropdownItem>
         <DropdownItem name="logout">退出登录</DropdownItem>
       </DropdownMenu>
     </Dropdown>
@@ -13,9 +14,9 @@
 <script>
 import { mapActions } from "vuex";
 export default {
-  name: "User",
+  name: "Auth",
   props: {
-    userAvatar: {
+    authAvatar: {
       type: String,
       default: ""
     }
@@ -29,10 +30,14 @@ export default {
         });
       });
     },
+    changepw() {},
     handleClick(name) {
       switch (name) {
         case "logout":
           this.logout();
+          break;
+        case "changepw":
+          this.changepw();
           break;
       }
     }

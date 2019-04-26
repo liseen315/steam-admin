@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routers'
 import iView from 'iview'
-import { setTitle, getToken, removeToken, canTurnTo } from '@/utils'
+import { setTitle, getToken, removeToken } from '@/utils'
 import config from '@/config'
 import store from '@/store'
 const { homeName } = config
@@ -38,13 +38,13 @@ router.beforeEach((to, from, next) => {
     })
   } else {
     if (store.state.user.hasGetUserInfo) {
-      turnTo(to, store.state.user.roleName, next)
+      next()
     } else {
       store
         .dispatch('getUserInfo')
         .then(res => {
           if (res.code === 0) {
-            turnTo(to, res.body.userInfo.roleName, next)
+            next()
           } else {
             removeToken()
             next({

@@ -12,7 +12,7 @@
     <Layout>
       <Header class="header-con">
         <HeaderBar>
-          <User :userAvatar="userAvatar"></User>
+          <Auth :userAvatar="userAvatar"></Auth>
         </HeaderBar>
       </Header>
       <Content class="main-content-con">
@@ -30,11 +30,11 @@
 
 <script>
 import HeaderBar from "./headerbar";
-import User from "./user";
+import Auth from "./auth";
 export default {
   components: {
     HeaderBar,
-    User
+    Auth
   },
   data() {
     return {

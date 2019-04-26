@@ -10,7 +10,7 @@ export default [
   },
   {
     path: '/',
-    name: '_home',
+    name: 'layout',
     redirect: '/home',
     component: Layout,
     meta: {

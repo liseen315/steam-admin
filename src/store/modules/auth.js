@@ -1,4 +1,4 @@
-import UserService from '../../service/UserService'
+import AuthService from '../../service/AuthService'
 import { getToken, setToken, removeToken } from '../../utils/index'
 import { RESET_STATE, SET_USERINFO } from '../types'
 
@@ -15,7 +15,7 @@ const actions = {
   login ({ commit }, { userName, passWord }) {
     userName = userName.trim()
     return new Promise((resolve, reject) => {
-      new UserService()
+      new AuthService()
         .login({ userName, passWord })
         .then(res => {
           if (res.code === 0) {
@@ -31,7 +31,7 @@ const actions = {
 
   getUserInfo ({ commit }) {
     return new Promise((resolve, reject) => {
-      new UserService()
+      new AuthService()
         .getInfo()
         .then(res => {
           if (res.code === 0) {
@@ -47,7 +47,7 @@ const actions = {
 
   handleLogOut ({ commit }) {
     return new Promise((resolve, reject) => {
-      new UserService()
+      new AuthService()
         .logout()
         .then(res => {
           if (res.code === 0) {
@@ -70,7 +70,6 @@ const mutations = {
     state.status = 1
     state.createName = ''
     state.createId = ''
-    state.roleName = ''
     state.hasGetUserInfo = false
   },
   [SET_USERINFO] (state, userInfo) {
@@ -79,7 +78,6 @@ const mutations = {
     state.status = userInfo.status
     state.createName = userInfo.createName
     state.createId = userInfo.createId
-    state.roleName = userInfo.roleName
     state.hasGetUserInfo = true
   }
 }
