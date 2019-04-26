@@ -8,7 +8,7 @@ const state = {
   status: 1,
   createName: '',
   createId: '',
-  roleName: '', // 角色名称,用于前端进行导航权限判断,前后端协商
+  permision: null, // 权限对象,前端通过这个对象生成Menu以及进行权限判断
   hasGetUserInfo: false // 是否获取到了userInfo
 }
 const actions = {

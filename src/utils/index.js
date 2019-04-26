@@ -1,8 +1,4 @@
-import config from '@/config'
-import Cookies from 'js-cookie'
-
-const { title, cookieExpires } = config
-
+const title = 'steam-admin'
 export const TOKEN_KEY = 'auth'
 /**
  * 往本地存储token

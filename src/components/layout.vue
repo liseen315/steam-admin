@@ -3,12 +3,14 @@
     <Sider
       hide-trigger
       collapsible
-      :width="256"
+      :width="240"
       :collapsed-width="64"
       v-model="collapsed"
       class="left-sider"
       :style="{overflow: 'hidden'}"
-    ></Sider>
+    >
+      <SiderMenu></SiderMenu>
+    </Sider>
     <Layout>
       <Header class="header-con">
         <HeaderBar>
@@ -31,10 +33,12 @@
 <script>
 import HeaderBar from "./headerbar";
 import Auth from "./auth";
+import SiderMenu from "./siderMenu";
 export default {
   components: {
     HeaderBar,
-    Auth
+    Auth,
+    SiderMenu
   },
   data() {
     return {
@@ -88,13 +92,10 @@ export default {
     height: calc(100% - 80px);
     overflow: auto;
   }
-  .left-sider {
-    .ivu-layout-sider-children {
-      overflow-y: scroll;
-      margin-right: -18px;
-    }
-  }
 }
+</style>
+
+<style lang="scss">
 .ivu-menu-item > i {
   margin-right: 12px !important;
 }
@@ -129,5 +130,13 @@ export default {
 .ivu-select-dropdown.ivu-dropdown-transfer {
   max-height: 400px;
 }
+
+.left-sider {
+  .ivu-layout-sider-children {
+    overflow-y: scroll;
+    margin-right: -18px;
+  }
+}
 </style>
+
 
