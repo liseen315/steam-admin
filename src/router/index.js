@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routes from './routers'
+import { constantRouterMap } from './routers'
 import iView from 'iview'
 import { setTitle, getToken, removeToken } from '@/utils'
 import config from '@/config'
@@ -9,19 +9,9 @@ const { homeName } = config
 
 Vue.use(Router)
 const router = new Router({
-  routes,
+  routes: constantRouterMap,
   mode: 'history'
 })
-
-const turnTo = (to, access, next) => {
-  if (canTurnTo(to.name, access, routes)) {
-    // 有权限，可访问
-    next()
-  } else {
-    // 无权限，重定向到401页面
-    next({ replace: true, name: 'error_401' })
-  }
-}
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
