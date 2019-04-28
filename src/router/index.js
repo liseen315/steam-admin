@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import { constantRouterMap } from './routers'
+import { constantRouterMap } from './config'
 import iView from 'iview'
 import { setTitle, getToken, removeToken } from '@/utils'
 import store from '@/store'
@@ -25,7 +25,6 @@ router.beforeEach((to, from, next) => {
       name: 'home'
     })
   } else {
-    console.log('----beforeEach--', store.getters.hasGetUserInfo, to.name)
     if (store.getters.hasGetUserInfo) {
       next()
     } else {

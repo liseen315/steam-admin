@@ -1,6 +1,6 @@
-import { asyncRouterMap, constantRouterMap } from '@/router/routers'
-import { INIT_ROUTER } from '../types'
-
+import { asyncRouterMap, constantRouterMap } from '../../router/config'
+import { SET_ROUTERS } from '../types'
+import _ from 'lodash'
 /**
  * 判断用户是否拥有此菜单
  * @param menus
@@ -39,22 +39,31 @@ function filterAsyncRouter (asyncRouterMap, menus) {
 }
 
 const state = {
-  addRouters: [] // 动态添加的路由
+  addRouters: null,
+  routers: null
 }
 
 const actions = {
-  generateRouters ({ commit }, menuList) {
-    return new Promise((resolve, reject) => {
-      console.log('--menuList--', menuList)
-      // 如果是超级管理员应该开放所有权限
-      let accessedRouters
-      accessedRouters = filterAsyncRouter(asyncRouterMap, menuList)
-      resolve()
-    })
+  generateRouters ({ commit }, parms) {
+    console.log('--menuList--', parms)
+    // 如果是超级管理员应该开放所有权限
+    let accessedRouters
+    if (parms.roleName === 'super_admin') {
+      accessedRouters = asyncRouterMap
+    } else {
+      accessedRouters = filterAsyncRouter(asyncRouterMap, parms.menus)
+    }
+    commit(SET_ROUTERS, accessedRouters)
   }
 }
 
-const mutations = {}
+const mutations = {
+  [SET_ROUTERS] (state, routers) {
+    console.log('---routers--', routers)
+    state.addRouters = _.cloneDeep(routers)
+    // state.routers = constantRouterMap.concat(routers)
+  }
+}
 
 export default {
   state,
