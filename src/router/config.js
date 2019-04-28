@@ -48,7 +48,8 @@ export const asyncRouterMap = [
     component: Layout,
     name: 'contentManager',
     meta: {
-      title: '内容管理'
+      title: '内容管理',
+      icon: 'logo-buffer'
     },
     children: [
       {
@@ -68,7 +69,8 @@ export const asyncRouterMap = [
     component: Layout,
     name: 'spiderManager',
     meta: {
-      title: '爬虫管理'
+      title: '爬虫管理',
+      icon: 'md-bug'
     },
     children: [
       {
@@ -88,7 +90,8 @@ export const asyncRouterMap = [
     component: Layout,
     name: 'permissionManager',
     meta: {
-      title: '权限管理'
+      title: '权限管理',
+      icon: 'md-contact'
     },
     children: [
       {

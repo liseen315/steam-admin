@@ -9,7 +9,7 @@
       class="left-sider"
       :style="{overflow: 'hidden'}"
     >
-      <SiderMenu></SiderMenu>
+      <SiderMenu @on-select="turnToPage"></SiderMenu>
     </Sider>
     <Layout>
       <Header class="header-con">
@@ -46,6 +46,13 @@ export default {
       userAvatar:
         "https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png"
     };
+  },
+  methods: {
+    turnToPage(routeName) {
+      // this.$router.push({
+      //   name: routeName
+      // });
+    }
   }
 };
 </script>
