@@ -2,6 +2,7 @@ import AuthService from '../../service/AuthService'
 import { getToken, setToken, removeToken } from '../../utils/index'
 import { RESET_STATE, SET_USERINFO } from '../types'
 import store from '..'
+import router from '../../router'
 
 const state = {
   userName: '',
@@ -37,10 +38,14 @@ const actions = {
         .then(res => {
           if (res.code === 0) {
             commit(SET_USERINFO, res.body)
-            store.dispatch('generateRouters', {
-              menus: state.menus,
-              roleName: state.roleName
-            })
+            store
+              .dispatch('generateRouters', {
+                menus: state.menus,
+                roleName: state.roleName
+              })
+              .then(() => {
+                router.addRoutes(store.getters.addRouters)
+              })
           }
           resolve(res)
         })

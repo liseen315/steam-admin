@@ -47,13 +47,17 @@ const actions = {
   generateRouters ({ commit }, parms) {
     console.log('--menuList--', parms)
     // 如果是超级管理员应该开放所有权限
-    let accessedRouters
-    if (parms.roleName === 'super_admin') {
-      accessedRouters = asyncRouterMap
-    } else {
-      accessedRouters = filterAsyncRouter(asyncRouterMap, parms.menus)
-    }
-    commit(SET_ROUTERS, accessedRouters)
+
+    return new Promise((resolve, reject) => {
+      let accessedRouters
+      if (parms.roleName === 'super_admin') {
+        accessedRouters = asyncRouterMap
+      } else {
+        accessedRouters = filterAsyncRouter(asyncRouterMap, parms.menus)
+      }
+      commit(SET_ROUTERS, accessedRouters)
+      resolve()
+    })
   }
 }
 
