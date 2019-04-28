@@ -1,14 +1,14 @@
 import AuthService from '../../service/AuthService'
 import { getToken, setToken, removeToken } from '../../utils/index'
 import { RESET_STATE, SET_USERINFO } from '../types'
+import store from '..'
 
 const state = {
   userName: '',
   userId: '',
   status: 1,
-  createName: '',
-  createId: '',
-  permision: null, // 权限对象,前端通过这个对象生成Menu以及进行权限判断
+  menus: [], // 菜单列表
+  permissions: [], // 权限列表
   hasGetUserInfo: false // 是否获取到了userInfo
 }
 const actions = {
@@ -35,7 +35,9 @@ const actions = {
         .getInfo()
         .then(res => {
           if (res.code === 0) {
-            commit(SET_USERINFO, res.body.userInfo)
+            commit(SET_USERINFO, res.body)
+
+            store.dispatch('generateRouters', state.menus)
           }
           resolve(res)
         })
@@ -68,16 +70,16 @@ const mutations = {
     state.userName = ''
     state.userId = ''
     state.status = 1
-    state.createName = ''
-    state.createId = ''
+    state.menus = []
+    state.permissions = []
     state.hasGetUserInfo = false
   },
   [SET_USERINFO] (state, userInfo) {
     state.userName = userInfo.userName
     state.userId = userInfo.userId
     state.status = userInfo.status
-    state.createName = userInfo.createName
-    state.createId = userInfo.createId
+    state.menus = userInfo.menus
+    state.permissions = userInfo.permissions
     state.hasGetUserInfo = true
   }
 }

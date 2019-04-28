@@ -14,7 +14,7 @@
     <Layout>
       <Header class="header-con">
         <HeaderBar>
-          <Auth :userAvatar="userAvatar"></Auth>
+          <Auth :authAvatar="userAvatar"></Auth>
         </HeaderBar>
       </Header>
       <Content class="main-content-con">

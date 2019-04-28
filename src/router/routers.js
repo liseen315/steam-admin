@@ -43,11 +43,37 @@ export const constantRouterMap = [
 
 export const asyncRouterMap = [
   {
-    path: '/',
+    path: '/sys',
     name: 'layout',
-    redirect: '/home',
+    redirect: '/sys/userlist',
     component: Layout,
-    meta: {},
-    children: [{}]
+    children: [
+      {
+        path: '/userlist',
+        name: 'userlist',
+        meta: {
+          title: '管理员列表'
+        },
+        menu: 'sys_user',
+        component: () => import('@/views/userList.vue')
+      }
+    ]
+  },
+  {
+    path: '/sys',
+    name: 'layout',
+    redirect: '/sys/rolelist',
+    component: Layout,
+    children: [
+      {
+        path: '/rolelist',
+        name: 'rolelist',
+        meta: {
+          title: '角色列表'
+        },
+        menu: 'sys_user',
+        component: () => import('@/views/roleList.vue')
+      }
+    ]
   }
 ]
