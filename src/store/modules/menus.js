@@ -1,5 +1,5 @@
 import { asyncRouterMap, constantRouterMap } from '../../router/config'
-import { SET_ROUTERS } from '../types'
+import { SET_ROUTERS, REST_ROUTERS } from '../types'
 import _ from 'lodash'
 /**
  * 判断用户是否拥有此菜单
@@ -7,11 +7,11 @@ import _ from 'lodash'
  * @param route
  */
 function hasPermission (menus, route) {
-  if (route.menu) {
+  if (route.meta.menu) {
     /*
      * 如果这个路由有menu属性,就需要判断用户是否拥有此menu权限
      */
-    return menus.indexOf(route.menu) > -1
+    return menus.indexOf(route.meta.menu) > -1
   } else {
     return true
   }
@@ -51,21 +51,30 @@ const actions = {
     return new Promise((resolve, reject) => {
       let accessedRouters
       if (parms.roleName === 'super_admin') {
-        accessedRouters = asyncRouterMap
+        accessedRouters = _.cloneDeep(asyncRouterMap)
       } else {
-        accessedRouters = filterAsyncRouter(asyncRouterMap, parms.menus)
+        accessedRouters = filterAsyncRouter(
+          _.cloneDeep(asyncRouterMap),
+          parms.menus
+        )
       }
       commit(SET_ROUTERS, accessedRouters)
       resolve()
     })
+  },
+  resetRouters ({ commit }) {
+    commit(REST_ROUTERS)
   }
 }
 
 const mutations = {
   [SET_ROUTERS] (state, routers) {
     console.log('---routers--', routers)
-    state.addRouters = _.cloneDeep(routers)
+    state.addRouters = routers
     // state.routers = constantRouterMap.concat(routers)
+  },
+  [REST_ROUTERS] (state) {
+    state.addRouters = []
   }
 }
 

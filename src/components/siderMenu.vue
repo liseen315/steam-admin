@@ -4,22 +4,22 @@
     <Menu ref="menu" :theme="theme" width="auto" @on-select="handleSelect">
       <template v-for="item in addRouters">
         <template v-if="item.children && item.children.length === 1">
-          <MenuItem :name="getNameOrHref(item,true)" :key="`menu-${item.children[0].name}`">
-            <Icon type="md-bug"/>
-            {{showTitle(item)}}
+          <MenuItem :name="item.children[0].name" :key="`menu-${item.children[0].name}`">
+            <Icon :type="item.meta.icon"/>
+            {{item.meta.title}}
           </MenuItem>
         </template>
         <template v-else>
-          <Submenu :name="getNameOrHref(item)" :key="`submenu-${item.name}`">
+          <Submenu :name="item.name" :key="`submenu-${item.name}`">
             <template slot="title">
-              <Icon type="ios-paper"/>
-              {{showTitle(item)}}
+              <Icon :type="item.meta.icon"/>
+              {{item.meta.title}}
             </template>
             <template v-for="subItems in item.children">
-              <MenuItem
-                :name="subItems.name"
-                :key="`submenuitem-${subItems.name}`"
-              >{{subItems.meta.title}}</MenuItem>
+              <MenuItem :name="subItems.name" :key="`submenuitem-${subItems.name}`">
+                <Icon :type="subItems.meta.icon"/>
+                {{subItems.meta.title}}
+              </MenuItem>
             </template>
           </Submenu>
         </template>

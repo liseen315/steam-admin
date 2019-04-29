@@ -1,14 +1,6 @@
 <template>
   <Layout class="main">
-    <Sider
-      hide-trigger
-      collapsible
-      :width="240"
-      :collapsed-width="64"
-      v-model="collapsed"
-      class="left-sider"
-      :style="{overflow: 'hidden'}"
-    >
+    <Sider hide-trigger class="left-sider" :style="{overflow: 'hidden'}">
       <SiderMenu @on-select="turnToPage"></SiderMenu>
     </Sider>
     <Layout>
@@ -101,49 +93,4 @@ export default {
   }
 }
 </style>
-
-<style lang="scss">
-.ivu-menu-item > i {
-  margin-right: 12px !important;
-}
-.ivu-menu-submenu > .ivu-menu > .ivu-menu-item > i {
-  margin-right: 8px !important;
-}
-.collased-menu-dropdown {
-  width: 100%;
-  margin: 0;
-  line-height: normal;
-  padding: 7px 0 6px 16px;
-  clear: both;
-  font-size: 12px !important;
-  white-space: nowrap;
-  list-style: none;
-  cursor: pointer;
-  transition: background 0.2s ease-in-out;
-  &:hover {
-    background: rgba(100, 100, 100, 0.1);
-  }
-  & * {
-    color: #515a6e;
-  }
-  .ivu-menu-item > i {
-    margin-right: 12px !important;
-  }
-  .ivu-menu-submenu > .ivu-menu > .ivu-menu-item > i {
-    margin-right: 8px !important;
-  }
-}
-
-.ivu-select-dropdown.ivu-dropdown-transfer {
-  max-height: 400px;
-}
-
-.left-sider {
-  .ivu-layout-sider-children {
-    overflow-y: scroll;
-    margin-right: -18px;
-  }
-}
-</style>
-
 

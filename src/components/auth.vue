@@ -1,7 +1,7 @@
 <template>
   <div class="user-avatar-dropdown">
     <Dropdown @on-click="handleClick">
-      <Avatar :src="authAvatar"/>
+      {{userInfo.userName}}
       <Icon :size="18" type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
         <DropdownItem name="changepw">更改密码</DropdownItem>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Auth",
   props: {
@@ -20,6 +20,9 @@ export default {
       type: String,
       default: ""
     }
+  },
+  computed: {
+    ...mapGetters(["userInfo"])
   },
   methods: {
     ...mapActions(["handleLogOut"]),

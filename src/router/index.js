@@ -6,10 +6,18 @@ import { setTitle, getToken, removeToken } from '@/utils'
 import store from '@/store'
 
 Vue.use(Router)
-const router = new Router({
-  routes: constantRouterMap,
-  mode: 'history'
-})
+// const router = new Router({
+//   routes: constantRouterMap,
+//   mode: 'history'
+// })
+
+export const createRouter = () =>
+  new Router({
+    mode: 'history',
+    routes: constantRouterMap
+  })
+
+export const router = createRouter()
 
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
@@ -55,5 +63,3 @@ router.afterEach(to => {
   iView.LoadingBar.finish()
   window.scrollTo(0, 0)
 })
-
-export default router

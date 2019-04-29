@@ -1,4 +1,5 @@
 const getters = {
+  userInfo: state => state.sysUser,
   menus: state => state.sysUser.menus,
   permissions: state => state.sysUser.permissions,
   hasGetUserInfo: state => state.sysUser.hasGetUserInfo,

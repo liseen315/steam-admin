@@ -56,7 +56,7 @@ export default {
     }
   },
   mounted: function() {
-    console.log("---组件已经挂载---");
+    // console.log("---组件已经挂载---");
   },
   methods: {
     ...mapActions(["login", "getUserInfo"]),

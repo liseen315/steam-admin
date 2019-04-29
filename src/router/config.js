@@ -4,7 +4,8 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     meta: {
-      title: '登录'
+      title: '登录',
+      icon: 'ios-paper'
     },
     component: () => import('@/views/login.vue')
   },
@@ -18,26 +19,12 @@ export const constantRouterMap = [
         path: '/home',
         name: 'home',
         meta: {
-          title: '首页'
+          title: '首页',
+          icon: 'ios-paper'
         },
         component: () => import('@/views/home.vue')
       }
     ]
-  },
-  {
-    path: '/401',
-    name: 'error_401',
-    component: () => import('@/views/error-page/401.vue')
-  },
-  {
-    path: '/500',
-    name: 'error_500',
-    component: () => import('@/views/error-page/500.vue')
-  },
-  {
-    path: '*',
-    name: 'error_404',
-    component: () => import('@/views/error-page/404.vue')
   }
 ]
 
@@ -49,16 +36,16 @@ export const asyncRouterMap = [
     name: 'contentManager',
     meta: {
       title: '内容管理',
-      icon: 'logo-buffer'
+      icon: 'ios-paper'
     },
     children: [
       {
         path: '/newslist',
         name: 'newslist',
         meta: {
-          title: '新闻'
+          title: '新闻',
+          menu: 'sys_news'
         },
-        menu: 'sys_news',
         component: () => import('@/views/newsList.vue')
       }
     ]
@@ -77,9 +64,9 @@ export const asyncRouterMap = [
         path: '/spiderlist',
         name: 'spiderlist',
         meta: {
-          title: '爬虫'
+          title: '爬虫',
+          menu: 'sys_spider'
         },
-        menu: 'sys_spider',
         component: () => import('@/views/spiderList.vue')
       }
     ]
@@ -98,18 +85,21 @@ export const asyncRouterMap = [
         path: '/userlist',
         name: 'userlist',
         meta: {
-          title: '管理员列表'
+          title: '管理员列表',
+          menu: 'sys_user',
+          icon: 'ios-body'
         },
-        menu: 'sys_user',
+
         component: () => import('@/views/userList.vue')
       },
       {
         path: '/rolelist',
         name: 'rolelist',
         meta: {
-          title: '角色列表'
+          title: '角色列表',
+          menu: 'sys_user',
+          icon: 'ios-man'
         },
-        menu: 'sys_user',
         component: () => import('@/views/roleList.vue')
       }
     ]

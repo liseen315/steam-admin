@@ -2,7 +2,7 @@ import AuthService from '../../service/AuthService'
 import { getToken, setToken, removeToken } from '../../utils/index'
 import { RESET_STATE, SET_USERINFO } from '../types'
 import store from '..'
-import router from '../../router'
+import { router, createRouter } from '../../router'
 
 const state = {
   userName: '',
@@ -44,10 +44,11 @@ const actions = {
                 roleName: state.roleName
               })
               .then(() => {
+                router.matcher = createRouter().matcher
                 router.addRoutes(store.getters.addRouters)
+                resolve(res)
               })
           }
-          resolve(res)
         })
         .catch(err => {
           reject(err)
@@ -63,6 +64,7 @@ const actions = {
           if (res.code === 0) {
             removeToken()
             commit(RESET_STATE)
+            store.dispatch('resetRouters')
           }
           resolve(res)
         })
