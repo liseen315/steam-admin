@@ -1,4 +1,9 @@
-import { API_LOGIN, API_GET_MANAGERINFO, API_LOGOUT } from './apiPath'
+import {
+  API_LOGIN,
+  API_GET_MANAGERINFO,
+  API_LOGOUT,
+  API_CHANGE_PASSWORD
+} from './apiPath'
 import BaseService from './BaseService'
 class AuthService extends BaseService {
   /**
@@ -18,8 +23,8 @@ class AuthService extends BaseService {
    * 更改密码
    * @param {String} newpass
    */
-  changePassWord (newpass) {
-    return this.post(API_CHANGE_PASSWORD, newpass)
+  changePassWord (npw) {
+    return this.post(API_CHANGE_PASSWORD, { newPassWord: npw })
   }
   /**
    * 登出

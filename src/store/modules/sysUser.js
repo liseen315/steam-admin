@@ -56,6 +56,18 @@ const actions = {
     })
   },
 
+  changePassWord ({ commit }, newPassWord) {
+    return new Promise((resolve, reject) => {
+      new AuthService().changePassWord(newPassWord).then(res => {
+        if (res.code === 0) {
+          removeToken()
+          commit(RESET_STATE)
+          resolve()
+        }
+      })
+    })
+  },
+
   handleLogOut ({ commit }) {
     return new Promise((resolve, reject) => {
       new AuthService()

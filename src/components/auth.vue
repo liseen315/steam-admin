@@ -8,6 +8,26 @@
         <DropdownItem name="logout">退出登录</DropdownItem>
       </DropdownMenu>
     </Dropdown>
+
+    <Modal v-model="changepwModal" width="400" class="change-pw-modal">
+      <p slot="header" class="header">
+        <span>更改密码</span>
+      </p>
+      <div class="password-form">
+        <Form ref="formPw" :model="formPw" :rules="rulePw" label-position="top">
+          <FormItem label="Password" prop="passwd">
+            <Input type="password" v-model="formPw.passwd"></Input>
+          </FormItem>
+          <FormItem label="Confirm" prop="passwdCheck">
+            <Input type="password" v-model="formPw.passwdCheck"></Input>
+          </FormItem>
+        </Form>
+      </div>
+      <div slot="footer">
+        <Button type="primary" @click="handleSubmit('formPw')">Submit</Button>
+        <Button @click="handleReset('formPw')" style="margin-left: 8px">Reset</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -21,11 +41,58 @@ export default {
       default: ""
     }
   },
+  data() {
+    const validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Please enter your password"));
+      } else {
+        if (this.formPw.passwdCheck !== "") {
+          // 对第二个密码框单独验证
+          this.$refs.formPw.validateField("passwdCheck");
+        }
+        callback();
+      }
+    };
+    const validatePassCheck = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("Please enter your password again"));
+      } else if (value !== this.formPw.passwd) {
+        callback(new Error("The two input passwords do not match!"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      changepwModal: false,
+      formPw: {
+        passwd: "",
+        passwdCheck: ""
+      },
+      rulePw: {
+        passwd: [{ validator: validatePass, trigger: "blur" }],
+        passwdCheck: [{ validator: validatePassCheck, trigger: "blur" }]
+      }
+    };
+  },
   computed: {
     ...mapGetters(["userInfo"])
   },
   methods: {
-    ...mapActions(["handleLogOut"]),
+    ...mapActions(["handleLogOut", "changePassWord"]),
+    handleSubmit(name) {
+      this.$refs[name].validate(valid => {
+        if (valid) {
+          this.changePassWord(this.formPw.passwd).then(res => {
+            this.$router.push({
+              name: "login"
+            });
+          });
+        }
+      });
+    },
+    handleReset(name) {
+      this.$refs[name].resetFields();
+    },
     logout() {
       this.handleLogOut().then(res => {
         this.$router.push({
@@ -33,14 +100,16 @@ export default {
         });
       });
     },
-    changepw() {},
+    showChangeModal() {
+      this.changepwModal = true;
+    },
     handleClick(name) {
       switch (name) {
         case "logout":
           this.logout();
           break;
         case "changepw":
-          this.changepw();
+          this.showChangeModal();
           break;
       }
     }
@@ -57,6 +126,11 @@ export default {
     .ivu-badge-dot {
       top: 16px;
     }
+  }
+}
+.change-pw-modal {
+  .header {
+    text-align: center;
   }
 }
 </style>
