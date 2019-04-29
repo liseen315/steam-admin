@@ -42,8 +42,17 @@ export const asyncRouterMap = [
         path: 'newslist',
         name: 'newslist',
         meta: {
-          title: '新闻',
+          title: '新闻管理',
           menu: 'sys_news'
+        },
+        component: () => import('@/views/newsList.vue')
+      },
+      {
+        path: 'commentlist',
+        name: 'commentlist',
+        meta: {
+          title: '评论管理',
+          menu: 'sys_comment'
         },
         component: () => import('@/views/newsList.vue')
       }
@@ -75,7 +84,7 @@ export const asyncRouterMap = [
     name: 'permission',
     meta: {
       title: '权限管理',
-      icon: 'md-contact'
+      icon: 'md-hammer'
     },
     children: [
       {
@@ -84,7 +93,7 @@ export const asyncRouterMap = [
         meta: {
           title: '管理员列表',
           menu: 'sys_user',
-          icon: 'ios-body'
+          icon: 'md-contacts'
         },
 
         component: () => import('@/views/userList.vue')

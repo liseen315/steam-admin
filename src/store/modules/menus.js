@@ -43,7 +43,6 @@ const actions = {
   generateRouters ({ commit }, parms) {
     console.log('--menuList--', parms)
     // 如果是超级管理员应该开放所有权限
-
     return new Promise((resolve, reject) => {
       let accessedRouters
       accessedRouters = filterAsyncRouter(
@@ -70,8 +69,18 @@ const mutations = {
   }
 }
 
+const getters = {
+  permission_routers: state => {
+    return state.routers
+  },
+  addRouters: state => {
+    return state.addRouters
+  }
+}
+
 export default {
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }

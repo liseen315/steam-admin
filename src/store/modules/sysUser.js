@@ -61,8 +61,7 @@ const actions = {
       new AuthService().changePassWord(newPassWord).then(res => {
         if (res.code === 0) {
           removeToken()
-          commit(RESET_STATE)
-          resolve()
+          resolve(res)
         }
       })
     })
@@ -108,8 +107,24 @@ const mutations = {
   }
 }
 
+const getters = {
+  userInfo: state => {
+    return state
+  },
+  menus: state => {
+    return state.menus
+  },
+  permissions: state => {
+    return state.permissions
+  },
+  hasGetUserInfo: state => {
+    return state.hasGetUserInfo
+  }
+}
+
 export default {
   state,
   actions,
-  mutations
+  mutations,
+  getters
 }

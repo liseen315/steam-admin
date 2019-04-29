@@ -44,7 +44,7 @@ export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please enter your password"));
+        callback(new Error("请输入密码"));
       } else {
         if (this.formPw.passwdCheck !== "") {
           // 对第二个密码框单独验证
@@ -55,9 +55,9 @@ export default {
     };
     const validatePassCheck = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please enter your password again"));
+        callback(new Error("请再次输入密码"));
       } else if (value !== this.formPw.passwd) {
-        callback(new Error("The two input passwords do not match!"));
+        callback(new Error("两次密码输入不匹配!"));
       } else {
         callback();
       }
@@ -83,9 +83,15 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.changePassWord(this.formPw.passwd).then(res => {
-            this.$router.push({
-              name: "login"
-            });
+            if (res.code === 0) {
+              setTimeout(() => {
+                this.$router.push({
+                  name: "login"
+                });
+              }, 500);
+              this.changepwModal = false;
+              this.$Message.success("修改密码成功");
+            }
           });
         }
       });
