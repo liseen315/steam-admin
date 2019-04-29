@@ -64,7 +64,7 @@ const actions = {
           if (res.code === 0) {
             removeToken()
             commit(RESET_STATE)
-            store.dispatch('resetRouters')
+            // store.dispatch('resetRouters')
           }
           resolve(res)
         })

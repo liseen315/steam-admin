@@ -41,9 +41,9 @@ export default {
   },
   methods: {
     turnToPage(routeName) {
-      // this.$router.push({
-      //   name: routeName
-      // });
+      this.$router.push({
+        name: routeName
+      });
     }
   }
 };

@@ -6,10 +6,6 @@ import { setTitle, getToken, removeToken } from '@/utils'
 import store from '@/store'
 
 Vue.use(Router)
-// const router = new Router({
-//   routes: constantRouterMap,
-//   mode: 'history'
-// })
 
 export const createRouter = () =>
   new Router({
@@ -40,7 +36,7 @@ router.beforeEach((to, from, next) => {
         .dispatch('getUserInfo')
         .then(res => {
           if (res.code === 0) {
-            next()
+            next({ ...to })
           } else {
             removeToken()
             next({

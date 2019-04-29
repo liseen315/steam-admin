@@ -5,7 +5,7 @@ export const constantRouterMap = [
     name: 'login',
     meta: {
       title: '登录',
-      icon: 'ios-paper'
+      hideInMenu: true
     },
     component: () => import('@/views/login.vue')
   },
@@ -16,11 +16,11 @@ export const constantRouterMap = [
     component: Layout,
     children: [
       {
-        path: '/home',
+        path: 'home',
         name: 'home',
         meta: {
           title: '首页',
-          icon: 'ios-paper'
+          hideInMenu: true
         },
         component: () => import('@/views/home.vue')
       }
@@ -30,17 +30,16 @@ export const constantRouterMap = [
 
 export const asyncRouterMap = [
   {
-    path: '/sys',
-    redirect: 'sys/newslist',
+    path: '/content',
     component: Layout,
-    name: 'contentManager',
+    name: 'content',
     meta: {
       title: '内容管理',
       icon: 'ios-paper'
     },
     children: [
       {
-        path: '/newslist',
+        path: 'newslist',
         name: 'newslist',
         meta: {
           title: '新闻',
@@ -51,20 +50,19 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/sys',
-    redirect: 'sys/spiderlist',
+    path: '/spider',
     component: Layout,
-    name: 'spiderManager',
+    name: 'spider',
     meta: {
       title: '爬虫管理',
       icon: 'md-bug'
     },
     children: [
       {
-        path: '/spiderlist',
+        path: 'spiderlist',
         name: 'spiderlist',
         meta: {
-          title: '爬虫',
+          title: '爬虫管理',
           menu: 'sys_spider'
         },
         component: () => import('@/views/spiderList.vue')
@@ -72,17 +70,16 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/sys',
-    redirect: 'sys/userlist',
+    path: '/permission',
     component: Layout,
-    name: 'permissionManager',
+    name: 'permission',
     meta: {
       title: '权限管理',
       icon: 'md-contact'
     },
     children: [
       {
-        path: '/userlist',
+        path: 'userlist',
         name: 'userlist',
         meta: {
           title: '管理员列表',
@@ -93,7 +90,7 @@ export const asyncRouterMap = [
         component: () => import('@/views/userList.vue')
       },
       {
-        path: '/rolelist',
+        path: 'rolelist',
         name: 'rolelist',
         meta: {
           title: '角色列表',
@@ -103,5 +100,13 @@ export const asyncRouterMap = [
         component: () => import('@/views/roleList.vue')
       }
     ]
+  },
+  {
+    path: '*',
+    name: 'error_404',
+    meta: {
+      hideInMenu: true // 不在菜单内显示
+    },
+    component: () => import('@/views/error-page/404.vue')
   }
 ]

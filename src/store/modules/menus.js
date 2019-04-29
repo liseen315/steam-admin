@@ -8,10 +8,9 @@ import _ from 'lodash'
  */
 function hasPermission (menus, route) {
   if (route.meta.menu) {
-    /*
-     * 如果这个路由有menu属性,就需要判断用户是否拥有此menu权限
-     */
     return menus.indexOf(route.meta.menu) > -1
+  } else if (route.meta.hideInMenu) {
+    return false
   } else {
     return true
   }
@@ -23,12 +22,9 @@ function hasPermission (menus, route) {
  */
 function filterAsyncRouter (asyncRouterMap, menus) {
   const accessedRouters = asyncRouterMap.filter(route => {
-    // filter,js语法里数组的过滤筛选方法
     if (hasPermission(menus, route)) {
       if (route.children && route.children.length) {
-        // 如果这个路由下面还有下一级的话,就递归调用
         route.children = filterAsyncRouter(route.children, menus)
-        // 如果过滤一圈后,没有子元素了,这个父级菜单就也不显示了
         return route.children && route.children.length
       }
       return true
@@ -39,8 +35,8 @@ function filterAsyncRouter (asyncRouterMap, menus) {
 }
 
 const state = {
-  addRouters: null,
-  routers: null
+  addRouters: [],
+  routers: constantRouterMap
 }
 
 const actions = {
@@ -50,14 +46,11 @@ const actions = {
 
     return new Promise((resolve, reject) => {
       let accessedRouters
-      if (parms.roleName === 'super_admin') {
-        accessedRouters = _.cloneDeep(asyncRouterMap)
-      } else {
-        accessedRouters = filterAsyncRouter(
-          _.cloneDeep(asyncRouterMap),
-          parms.menus
-        )
-      }
+      accessedRouters = filterAsyncRouter(
+        _.cloneDeep(asyncRouterMap),
+        parms.menus
+      )
+
       commit(SET_ROUTERS, accessedRouters)
       resolve()
     })
@@ -69,9 +62,8 @@ const actions = {
 
 const mutations = {
   [SET_ROUTERS] (state, routers) {
-    console.log('---routers--', routers)
     state.addRouters = routers
-    // state.routers = constantRouterMap.concat(routers)
+    state.routers = constantRouterMap.concat(routers)
   },
   [REST_ROUTERS] (state) {
     state.addRouters = []
