@@ -26,6 +26,8 @@
 import HeaderBar from "./headerbar";
 import Auth from "./auth";
 import SiderMenu from "./siderMenu";
+import { mapMutations, mapActions, mapGetters } from "vuex";
+import { constantRouterMap } from "../router/config";
 export default {
   components: {
     HeaderBar,
@@ -40,11 +42,15 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["setHomeRoute"]),
     turnToPage(routeName) {
       this.$router.push({
         name: routeName
       });
     }
+  },
+  mounted() {
+    this.setHomeRoute(constantRouterMap);
   }
 };
 </script>
