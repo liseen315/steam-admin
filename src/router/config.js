@@ -4,8 +4,7 @@ export const constantRouterMap = [
     path: '/login',
     name: 'login',
     meta: {
-      title: '登录',
-      hideInMenu: true
+      title: '登录'
     },
     component: () => import('@/views/login.vue')
   },
@@ -14,16 +13,13 @@ export const constantRouterMap = [
     name: '_home',
     redirect: '/home',
     component: Layout,
-    meta: {
-      hideInMenu: true
-    },
+    meta: {},
     children: [
       {
         path: '/home',
         name: 'home',
         meta: {
-          title: '首页',
-          hideInMenu: true
+          title: '首页'
         },
         component: () => import('@/views/home.vue')
       }
@@ -91,15 +87,15 @@ export const asyncRouterMap = [
     },
     children: [
       {
-        path: 'userlist',
-        name: 'userlist',
+        path: 'authlist',
+        name: 'authlist',
         meta: {
           title: '管理员列表',
           menu: 'sys_user',
           icon: 'md-contacts'
         },
 
-        component: () => import('@/views/userList.vue')
+        component: () => import('@/views/authList.vue')
       },
       {
         path: 'rolelist',

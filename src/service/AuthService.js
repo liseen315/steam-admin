@@ -2,7 +2,8 @@ import {
   API_LOGIN,
   API_GET_MANAGERINFO,
   API_LOGOUT,
-  API_CHANGE_PASSWORD
+  API_CHANGE_PASSWORD,
+  API_GET_AUTHLIST
 } from './apiPath'
 import BaseService from './BaseService'
 class AuthService extends BaseService {
@@ -31,6 +32,14 @@ class AuthService extends BaseService {
    */
   logout () {
     return this.post(API_LOGOUT)
+  }
+
+  getList () {
+    return this.get(API_GET_AUTHLIST)
+  }
+
+  add (authInfo) {
+    return this.post(API_ADD_AUTH, authInfo)
   }
 }
 

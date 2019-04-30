@@ -16,7 +16,7 @@ function hasPermission (menus, route) {
   }
 }
 /**
- * 递归过滤异步路由表，返回符合用户菜单权限的路由表
+ * 递归过滤异步路由表，返回符合用户菜单权限的路由表 这里还需要优化hideInMenu
  * @param asyncRouterMap
  * @param menus
  */

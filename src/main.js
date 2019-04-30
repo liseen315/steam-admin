@@ -4,7 +4,7 @@ import { router } from './router'
 import store from './store'
 import 'normalize.css'
 import './plugins/iview.js'
-import access from '@/directive/btnPermission'
+import access from '@/directive/permission'
 
 Vue.config.productionTip = false
 
