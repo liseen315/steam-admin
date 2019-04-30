@@ -42,7 +42,7 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setHomeRoute"]),
+    ...mapMutations(["setHomeRoute", "setBreadCrumb"]),
     turnToPage(routeName) {
       this.$router.push({
         name: routeName
@@ -51,6 +51,12 @@ export default {
   },
   mounted() {
     this.setHomeRoute(constantRouterMap);
+    this.setBreadCrumb(this.$route);
+  },
+  watch: {
+    $route(newRoute) {
+      this.setBreadCrumb(newRoute);
+    }
   }
 };
 </script>

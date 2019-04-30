@@ -11,12 +11,15 @@ export const constantRouterMap = [
   },
   {
     path: '/',
-    name: 'layout',
+    name: '_home',
     redirect: '/home',
     component: Layout,
+    meta: {
+      hideInMenu: true
+    },
     children: [
       {
-        path: 'home',
+        path: '/home',
         name: 'home',
         meta: {
           title: '首页',

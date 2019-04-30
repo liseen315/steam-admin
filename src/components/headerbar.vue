@@ -1,6 +1,7 @@
 <template>
   <div class="header-bar">
     <SiderTrigger icon="md-menu"></SiderTrigger>
+    <CustomBreadCrumb :list="breadCrumbList"></CustomBreadCrumb>
     <div class="custom-content-con">
       <slot></slot>
     </div>
@@ -8,10 +9,17 @@
 </template>
 <script>
 import SiderTrigger from "./siderTrigger";
+import CustomBreadCrumb from "./customBreadCrumb";
 export default {
   name: "HeaderBar",
   components: {
-    SiderTrigger
+    SiderTrigger,
+    CustomBreadCrumb
+  },
+  computed: {
+    breadCrumbList() {
+      return this.$store.getters.breadCrumbList;
+    }
   }
 };
 </script>

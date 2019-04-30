@@ -33,7 +33,7 @@ export default {
   display: inline-block;
   text-align: center;
   color: #5c6b77;
-  margin-top: 12px;
+  margin-top: 14px;
   i {
     transition: transform 0.2s ease;
     vertical-align: top;
