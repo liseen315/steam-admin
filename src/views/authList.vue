@@ -4,20 +4,25 @@
       <Button type="primary" @click="getRoleHandler" v-access="`sys:user:add`">添加管理员</Button>
     </div>
     <Table border :columns="authColums" :data="authListData"></Table>
-    <Modal v-model="showCreateModal" width="320" class="add-role-modal">
+    <Modal
+      v-model="showCreateModal"
+      width="320"
+      class="add-role-modal"
+      @on-cancel="this.onModelCancelHandler"
+    >
       <p slot="header" class="header">
         <span>新增管理员</span>
       </p>
       <div class="model-content">
         <Form :model="formAddAuth" ref="formAddAuth" :rules="ruleAuth">
           <FormItem label="用户名" prop="userName">
-            <Input v-model="formAddAuth.userName"></Input>
+            <Input v-model="formAddAuth.userName"/>
           </FormItem>
           <FormItem label="密码" prop="passWord">
-            <Input type="password" v-model="formAddAuth.passWord"></Input>
+            <Input type="password" v-model="formAddAuth.passWord"/>
           </FormItem>
           <FormItem label="角色">
-            <Select @on-change="this.onRoleSelectHandler">
+            <Select v-model="roleIdSelect" @on-change="this.onRoleSelectHandler">
               <Option
                 v-for="item in this.roleList"
                 :value="item.roleId"
@@ -37,6 +42,7 @@
 <script>
 import AuthService from "../service/AuthService";
 import RoleService from "../service/RoleService";
+import { type } from "os";
 export default {
   name: "AuthList",
   data() {
@@ -129,6 +135,7 @@ export default {
         userName: "",
         passWord: ""
       },
+      roleIdSelect: -1,
       ruleAuth: {
         userName: [{ validator: validateUserName, trigger: "blur" }],
         passWord: [{ validator: validatePassWord, trigger: "blur" }]
@@ -156,13 +163,35 @@ export default {
       });
     },
     onRoleSelectHandler(value) {
-      console.log("---select--", value);
+      this.roleIdSelect = value;
     },
     addAuthHandler(name) {
       // 如果没选择role就不让添加
       this.$refs[name].validate(valid => {
-        console.log("---验证——--", valid);
+        if (this.roleIdSelect < 0 || typeof this.roleIdSelect === "undefined") {
+          this.$Message.error("请选择角色");
+          return;
+        }
+        new AuthService()
+          .addAuth({
+            userName: this.formAddAuth.userName,
+            passWord: this.formAddAuth.passWord,
+            roleId: this.roleIdSelect
+          })
+          .then(res => {
+            if (res.code === 0) {
+              // 添加管理员成功重新刷新管理员列表
+              this.$Message.success("添加管理员成功");
+              this.onModelCancelHandler();
+              this.getAuthList();
+            }
+          });
       });
+    },
+    onModelCancelHandler() {
+      this.$refs["formAddAuth"].resetFields();
+      this.roleIdSelect = -1;
+      this.showCreateModal = false;
     },
     updateAuth(index) {},
     removeAuth(index) {}
