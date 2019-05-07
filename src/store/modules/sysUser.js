@@ -48,6 +48,8 @@ const actions = {
                 router.addRoutes(store.getters.addRouters)
                 resolve(res)
               })
+          }else {
+            resolve(res)
           }
         })
         .catch(err => {

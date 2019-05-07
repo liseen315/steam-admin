@@ -105,9 +105,15 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.updateAuth(params.index);
+                      this.updateAuth(params);
                     }
-                  }
+                  },
+                  directives: [
+                    {
+                      name: "access",
+                      value: "sys:user:update"
+                    }
+                  ]
                 },
                 "修改"
               ),
@@ -120,9 +126,15 @@ export default {
                   },
                   on: {
                     click: () => {
-                      this.removeAuth(params.index);
+                      this.removeAuth(params);
                     }
-                  }
+                  },
+                  directives: [
+                    {
+                      name: "access",
+                      value: "sys:user:remove"
+                    }
+                  ]
                 },
                 "删除"
               )
@@ -193,8 +205,20 @@ export default {
       this.roleIdSelect = -1;
       this.showCreateModal = false;
     },
-    updateAuth(index) {},
-    removeAuth(index) {}
+    updateAuth(params) {
+      console.log("-----updateAuth--", params);
+    },
+    removeAuth(params) {
+      this.$Modal.warning({
+        title: "提示",
+        content: "确定删除此管理么",
+        onOk: () => {
+          new AuthService().removeAuth(params.row.userId).then(res => {
+            // 刷新列表
+          });
+        }
+      });
+    }
   }
 };
 </script>

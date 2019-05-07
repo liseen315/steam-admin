@@ -12,7 +12,6 @@ const access = Vue.directive('access', {
       permissionList.length &&
       !permissionList.includes(binding.value)
     ) {
-      console.log('---删除--', el)
       el.parentNode.removeChild(el)
     }
   }

@@ -4,7 +4,8 @@ import {
   API_LOGOUT,
   API_CHANGE_PASSWORD,
   API_GET_AUTHLIST,
-  API_ADD_AUTH
+  API_ADD_AUTH,
+  API_REMOVE_AUTH
 } from './apiPath'
 import BaseService from './BaseService'
 class AuthService extends BaseService {
@@ -34,13 +35,26 @@ class AuthService extends BaseService {
   logout () {
     return this.post(API_LOGOUT)
   }
-
+  /**
+   * 获取管理员列表
+   */
   getList () {
     return this.get(API_GET_AUTHLIST)
   }
-
+  /**
+   * 添加管理员
+   * @param {*} authInfo
+   */
   addAuth (authInfo) {
     return this.post(API_ADD_AUTH, authInfo)
+  }
+
+  /**
+   * 删除管理员
+   * @param {*} userId
+   */
+  removeAuth (userId) {
+    return this.post(API_REMOVE_AUTH, { userId: userId })
   }
 }
 

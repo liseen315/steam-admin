@@ -102,7 +102,7 @@ export const asyncRouterMap = [
         name: 'rolelist',
         meta: {
           title: '角色列表',
-          menu: 'sys_user',
+          menu: 'sys_role',
           icon: 'ios-man'
         },
         component: () => import('@/views/roleList.vue')

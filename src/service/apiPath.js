@@ -20,6 +20,10 @@ export const API_GET_AUTHLIST = originURL + '/sysuser/list' // get
 
 export const API_ADD_AUTH = originURL + '/sysuser/add' // post
 
+// 删除管理
+
+export const API_REMOVE_AUTH = originURL + '/sysuser/remove' // post
+
 // 获取角色列表
 
 export const API_GET_ROLELIST = originURL + '/sysrole/rolelist' // get
